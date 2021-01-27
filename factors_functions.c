@@ -1,37 +1,29 @@
-#define _GNU_SOURCE
 #include <stdio.h>
-#include <stdlib.h>
+/*
+    Finds the smallest divisor, if any, of a given number `n`
+    Returns:
+        smallest divisor if found
+        0 if n is prime
+*/
+int trial_division(long int n){
+long int f;
 
-int main(int argc, char const *argv[])
-{
-
-FILE *fp;
-char *line = NULL;
-size_t len = 0;
-ssize_t read;
-int product;
-
-if (argc != 2)
-{
-	printf("You need 1 argument, the file containing the numbers\n");
-	return (0);
+if (n%2 == 0){
+	printf("%lu=%lu*%i\n", n, n/2, 2);
+	return 0;
 }
 
-fp = fopen(argv[1], "r");
-
-if (fp == NULL)
+f = 3;
+while (f*f <= n)
 {
-	printf("Couldn't open file `%s`\n", argv[1]);
-	exit(EXIT_FAILURE);
+	if (n%f == 0){
+		printf("%lu=%lu*%lu\n", n, n/f, f);
+		return 0;
+	}
+	else{
+		f += 2;
+	}
 }
-
-while ((read = getline(&line, &len, fp)) != -1) {
-	product = atoi(line);
-	
-}
-
-free(line);
-exit(EXIT_SUCCESS);
-
+printf("%lu=%lu*%i\n", n, n, 1);
 return 0;
 }
